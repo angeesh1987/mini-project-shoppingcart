@@ -1,0 +1,25 @@
+name: Java CI on EC2
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: [self-hosted, Linux, X64]
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Show Java and Maven versions
+        run: |
+          java -version
+          mvn -version
+
+      - name: Build and test
+        run: mvn --batch-mode clean verify
